@@ -1,0 +1,39 @@
+{
+    "files.associations": {
+        "board.h": "c",
+        "tusb.h": "c",
+        "cdc_device.h": "c",
+        "hid_device.h": "c",
+        "usbd.h": "c",
+        "tusb_common.h": "c",
+        "tusb_option.h": "c",
+        "tusb_verify.h": "c",
+        "tusb_compiler.h": "c",
+        "time.h": "c",
+        "hid.h": "c",
+        "stdlib.h": "c",
+        "tusb_fifo.h": "c"
+    },
+    // These settings tweaks to the cmake plugin will ensure
+    // that you debug using cortex-debug instead of trying to launch
+    // a Pico binary on the host
+    "cmake.statusbar.advanced": {
+        "debug": {
+            "visibility": "hidden"
+        },
+        "launch": {
+            "visibility": "hidden"
+        },
+        "build": {
+            "visibility": "default"
+        },
+        "buildTarget": {
+            "visibility": "hidden"
+        }
+    },
+    "cmake.buildBeforeRun": true,
+    "C_Cpp.default.configurationProvider": "ms-vscode.cmake-tools",
+    "cortex-debug.openocdPath": "c:/dev/pico/openocd/src/openocd.exe",
+    "cortex-debug.variableUseNaturalFormat": false,
+    //"cortex-debug.gdbPath": "arm-none-eabi-gdb"
+}
