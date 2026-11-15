@@ -100,12 +100,12 @@ typedef union {
   struct {
     uint32_t buttonA;
     uint32_t buttonB;
-    uint32_t buttonRightTrigger;
+    //uint32_t buttonRightTrigger;
     //uint32_t buttonLeftTrigger;
     uint32_t buttonX;
     uint32_t buttonY;
     uint32_t buttonRightButton;
-    //uint32_t buttonLeftButton;
+    uint32_t buttonLeftButton;
     uint32_t buttonSelect;
     uint32_t buttonStart;
     uint32_t up;
@@ -276,7 +276,7 @@ void hid_task(void)
       gp[i].buttons = 0
       | (((input & player[i].buttonA )             ? GAMEPAD_BUTTON_A : 0) ) // 1K, A, Cross
       | (((input & player[i].buttonB)              ? GAMEPAD_BUTTON_B : 0) ) // 2K, B, Circle
-      | (((input & player[i].buttonRightTrigger)   ? GAMEPAD_BUTTON_TR2 : 0) ) // 3K, RT, 1`R2
+      | (((input & player[i].buttonLeftButton)      ? GAMEPAD_BUTTON_TL : 0) ) // 3K, LB, L1
       | (((input & player[i].buttonX)              ? GAMEPAD_BUTTON_X : 0) ) // 1P, X, Square
       | (((input & player[i].buttonY)              ? GAMEPAD_BUTTON_Y : 0) ) // 2P, Y, Triangle
       | (((input & player[i].buttonRightButton)    ? GAMEPAD_BUTTON_TR : 0) ) // 3P, RB, R1
