@@ -165,6 +165,8 @@ void hid_task();
 /*------------- MAIN -------------*/
 int main(void)
 {
+  board_init();
+
   // calculate input masks
   for (int i = 0; i < PLAYERS; i++) {
     for (int j = 0; j < BUTTONS+DIRECTIONS; j++) {
@@ -191,15 +193,14 @@ int main(void)
     gpio_pullup_mask >>= 1;
   }
 
-  board_init();
   tusb_init();
   // turn on LED
   board_led_write(1);
 
   while (1)
   {
-    hid_task();
     tud_task(); // tinyusb device task
+    hid_task();
   }
 
   return 0;
@@ -212,6 +213,10 @@ int main(void)
 // Invoked when device is mounted
 void tud_mount_cb(void)
 {
+  // Force a state report after every USB mount/reset.
+  for (int i = 0; i < PLAYERS; i++) {
+    playerInputPrev[i] = UINT32_MAX;
+  }
 }
 
 // Invoked when device is unmounted
@@ -297,13 +302,12 @@ void hid_task(void)
       gp[i].hat = GAMEPAD_HAT_CENTERED;
 
       // Send USB HID report
-      if ( tud_hid_n_ready(i) )
+      if ( tud_hid_n_ready(i) &&
+           tud_hid_n_gamepad_report(i, 0, gp[i].x, gp[i].y, gp[i].z, gp[i].rz, gp[i].rx, gp[i].ry, gp[i].hat, gp[i].buttons) )
       {
-          tud_hid_n_gamepad_report(i, 0, gp[i].x,gp[i].y,gp[i].z,gp[i].rz,gp[i].rx,gp[i].ry,gp[i].hat,gp[i].buttons);
+          playerInputPrev[i] = (input & playerMask[i]);
       }
     }
-    // Save previous input
-    playerInputPrev[i] = (input & playerMask[i]);
   }
 
 }

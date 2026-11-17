@@ -17,4 +17,4 @@ target_link_libraries(picoarcadestick PUBLIC pico_stdlib tinyusb_device tinyusb_
 pico_add_extra_outputs(picoarcadestick)
 
 pico_enable_stdio_usb(picoarcadestick 0)
-pico_enable_stdio_uart(picoarcadestick 1)
+pico_enable_stdio_uart(picoarcadestick 0)
